@@ -11,18 +11,21 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RestController
 public class PatientController {
 
-    @Autowired
     private PatientRepository patientRepository;
 
-    @Autowired
     private ScheduleRepository scheduleRepository;
+
+    @Autowired
+    public PatientController(PatientRepository patientRepository, ScheduleRepository scheduleRepository) {
+        this.patientRepository = patientRepository;
+        this.scheduleRepository = scheduleRepository;
+    }
 
     @GetMapping("/patients")
     public ResponseEntity getPatients() {
