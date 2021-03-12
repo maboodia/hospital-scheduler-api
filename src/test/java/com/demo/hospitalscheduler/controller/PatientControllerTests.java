@@ -1,7 +1,7 @@
-package com.intuit.hospitalscheduler.controller;
+package com.demo.hospitalscheduler.controller;
 
-import com.intuit.hospitalscheduler.persistence.repository.PatientRepository;
-import com.intuit.hospitalscheduler.persistence.repository.ScheduleRepository;
+import com.demo.hospitalscheduler.persistence.repository.PatientRepository;
+import com.demo.hospitalscheduler.persistence.repository.ScheduleRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 

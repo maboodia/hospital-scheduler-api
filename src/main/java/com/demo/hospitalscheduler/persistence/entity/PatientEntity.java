@@ -1,4 +1,4 @@
-package com.intuit.hospitalscheduler.persistence.entity;
+package com.demo.hospitalscheduler.persistence.entity;
 
 import javax.persistence.*;
 import java.util.List;

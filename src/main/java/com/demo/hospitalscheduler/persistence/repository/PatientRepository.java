@@ -1,6 +1,6 @@
-package com.intuit.hospitalscheduler.persistence.repository;
+package com.demo.hospitalscheduler.persistence.repository;
 
-import com.intuit.hospitalscheduler.persistence.entity.PatientEntity;
+import com.demo.hospitalscheduler.persistence.entity.PatientEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

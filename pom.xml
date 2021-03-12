@@ -10,7 +10,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 
 	</parent>
-	<groupId>com.intuit</groupId>
+	<groupId>com.demo</groupId>
 	<artifactId>hospital-scheduler-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>hospital-scheduler-api</name>

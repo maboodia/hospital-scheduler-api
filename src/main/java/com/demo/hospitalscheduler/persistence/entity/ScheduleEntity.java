@@ -1,4 +1,4 @@
-package com.intuit.hospitalscheduler.persistence.entity;
+package com.demo.hospitalscheduler.persistence.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;

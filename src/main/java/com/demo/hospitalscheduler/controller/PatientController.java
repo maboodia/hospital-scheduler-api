@@ -1,10 +1,10 @@
-package com.intuit.hospitalscheduler.controller;
+package com.demo.hospitalscheduler.controller;
 
-import com.intuit.hospitalscheduler.model.Schedule;
-import com.intuit.hospitalscheduler.persistence.entity.PatientEntity;
-import com.intuit.hospitalscheduler.persistence.entity.ScheduleEntity;
-import com.intuit.hospitalscheduler.persistence.repository.PatientRepository;
-import com.intuit.hospitalscheduler.persistence.repository.ScheduleRepository;
+import com.demo.hospitalscheduler.model.Schedule;
+import com.demo.hospitalscheduler.persistence.repository.PatientRepository;
+import com.demo.hospitalscheduler.persistence.entity.PatientEntity;
+import com.demo.hospitalscheduler.persistence.entity.ScheduleEntity;
+import com.demo.hospitalscheduler.persistence.repository.ScheduleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
