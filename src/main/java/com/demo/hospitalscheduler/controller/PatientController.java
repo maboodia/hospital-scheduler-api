@@ -28,6 +28,7 @@ public class PatientController {
     }
 
     @GetMapping("/patients")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity getPatients() {
         return new ResponseEntity<List<PatientEntity>>(patientRepository.findAll(), HttpStatus.OK);
     }
