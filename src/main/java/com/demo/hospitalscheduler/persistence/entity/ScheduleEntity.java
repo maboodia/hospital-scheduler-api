@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.ZonedDateTime;
 import java.util.Date;
 
 @Entity
@@ -32,9 +33,9 @@ public class ScheduleEntity {
     private PatientEntity patient;
 
     @Column(name="start_date")
-    private Date startDate;
+    private ZonedDateTime startDate;
 
     @Column(name="requested_on")
-    private Date requestedOn;
+    private ZonedDateTime requestedOn;
 
 }

@@ -3,6 +3,7 @@ package com.demo.hospitalscheduler.persistence.entity;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Date;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -19,8 +20,8 @@ public class ScheduleEntityTests {
         patient.setName("Test Name");
         patient.setSchedules(new ArrayList<>());
 
-        Date startDate = new Date(System.currentTimeMillis());
-        Date requestedOn = new Date(System.currentTimeMillis());
+        ZonedDateTime startDate = ZonedDateTime.now();
+        ZonedDateTime requestedOn = ZonedDateTime.now();
 
         ScheduleEntity schedule = new ScheduleEntity(1, patient, startDate, requestedOn);
 

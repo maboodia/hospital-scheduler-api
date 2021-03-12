@@ -5,6 +5,7 @@ import com.demo.hospitalscheduler.persistence.entity.PatientEntity;
 import com.demo.hospitalscheduler.persistence.entity.ScheduleEntity;
 
 import java.sql.Date;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -40,8 +41,8 @@ public class TestDataHelper {
 
         Schedule schedule = new Schedule();
 
-        schedule.setDate(new Date(System.currentTimeMillis()));
-        schedule.setRequestedOn(new Date(System.currentTimeMillis()));
+        schedule.setDate(ZonedDateTime.now());
+        schedule.setRequestedOn(ZonedDateTime.now());
 
         return schedule;
     }
@@ -56,8 +57,8 @@ public class TestDataHelper {
         patient.setName("Test Name");
 
         schedule.setId(1);
-        schedule.setStartDate(new Date(System.currentTimeMillis()));
-        schedule.setRequestedOn(new Date(System.currentTimeMillis()));
+        schedule.setStartDate(ZonedDateTime.now());
+        schedule.setRequestedOn(ZonedDateTime.now());
         schedule.setPatient(patient);
 
         patient.setSchedules(new ArrayList<ScheduleEntity>(Arrays.asList(schedule)));

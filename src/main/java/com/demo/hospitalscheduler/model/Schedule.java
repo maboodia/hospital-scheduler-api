@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
+import java.time.ZonedDateTime;
 import java.util.Date;
 
 @Getter
@@ -15,8 +16,8 @@ import java.util.Date;
 public class Schedule {
 
     @NotNull
-    private Date date;
+    private ZonedDateTime date;
 
     @NotNull
-    private Date requestedOn;
+    private ZonedDateTime requestedOn;
 }
