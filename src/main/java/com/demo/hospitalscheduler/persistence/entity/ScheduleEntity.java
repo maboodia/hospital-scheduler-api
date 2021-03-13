@@ -1,6 +1,7 @@
 package com.demo.hospitalscheduler.persistence.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import javax.persistence.*;
@@ -33,9 +34,11 @@ public class ScheduleEntity {
     private PatientEntity patient;
 
     @Column(name="start_date")
+    @JsonFormat(pattern="MM/dd/yyyy HH:mm:ss")
     private ZonedDateTime startDate;
 
     @Column(name="requested_on")
+    @JsonFormat(pattern="MM/dd/yyyy HH:mm:ss")
     private ZonedDateTime requestedOn;
 
 }
