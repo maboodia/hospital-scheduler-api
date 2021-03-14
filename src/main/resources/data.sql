@@ -13,10 +13,10 @@ INSERT INTO patient (patient_id, patient_name) VALUES (patient_id_seq.nextval, '
 INSERT INTO patient (patient_id, patient_name) VALUES (patient_id_seq.nextval, 'Xin Wang');
 --INSERT INTO schedule (schedule_id, patient_id, start_date, requested_on) VALUES (schedule_id_seq.nextval, patient_id_seq.currval, sysdate + INTERVAL '50' MINUTE, sysdate);
 
-INSERT INTO patient (patient_id, patient_name) VALUES (patient_id_seq.nextval, 'Phil Kruse');
+INSERT INTO patient (patient_id, patient_name) VALUES (patient_id_seq.nextval, 'Max Kruse');
 INSERT INTO schedule (schedule_id, patient_id, start_date, requested_on) VALUES (schedule_id_seq.nextval, patient_id_seq.currval, sysdate + INTERVAL '60' MINUTE, sysdate);
 
-INSERT INTO patient (patient_id, patient_name) VALUES (patient_id_seq.nextval, 'Stephen Edwards');
+INSERT INTO patient (patient_id, patient_name) VALUES (patient_id_seq.nextval, 'Bill Edwards');
 INSERT INTO schedule (schedule_id, patient_id, start_date, requested_on) VALUES (schedule_id_seq.nextval, patient_id_seq.currval, sysdate + INTERVAL '70' MINUTE, sysdate);
 
 INSERT INTO patient (patient_id, patient_name) VALUES (patient_id_seq.nextval, 'Dean Smith');
