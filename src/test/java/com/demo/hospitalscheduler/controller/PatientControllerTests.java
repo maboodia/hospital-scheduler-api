@@ -5,6 +5,7 @@ import com.demo.hospitalscheduler.persistence.repository.PatientRepository;
 import com.demo.hospitalscheduler.persistence.repository.ScheduleRepository;
 import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -33,6 +34,7 @@ public class PatientControllerTests {
     private PatientController patientController;
 
     @Test
+    @DisplayName("Get Patients - Empty List")
     public void getPatients_EmptyList_Success() {
         Mockito.when(this.patientRepository.findAll()).thenReturn(TestDataHelper.generatePatientEntityList(0));
         ResponseEntity response = this.patientController.getPatients();
@@ -42,6 +44,7 @@ public class PatientControllerTests {
     }
 
     @Test
+    @DisplayName("Get Patients - List with Single Item")
     public void getPatients_ListWithSingleItem_Success() {
         Mockito.when(this.patientRepository.findAll()).thenReturn(TestDataHelper.generatePatientEntityList(1));
         ResponseEntity response = this.patientController.getPatients();
@@ -51,6 +54,7 @@ public class PatientControllerTests {
     }
 
     @Test
+    @DisplayName("Get Patients - List with Multiple Items")
     public void getPatients_ListWithMultipleItem_Success() {
         Mockito.when(this.patientRepository.findAll()).thenReturn(TestDataHelper.generatePatientEntityList(3));
         ResponseEntity response = this.patientController.getPatients();
@@ -60,6 +64,7 @@ public class PatientControllerTests {
     }
 
     @Test
+    @DisplayName("Add a Schedule - Patient Not Found")
     public void addSchedule_SingleItem_NotFound() {
 
         long patientId = 1;
@@ -72,6 +77,7 @@ public class PatientControllerTests {
     }
 
     @Test
+    @DisplayName("Add a Schedule")
     public void addSchedule_SingleItem_Success() {
 
         long patientId = 1;
@@ -86,6 +92,7 @@ public class PatientControllerTests {
     }
 
     @Test
+    @DisplayName("Add a Schedule - Not Saved if Already Exists")
     public void addSchedule_MultipleSavesOfSameSchedule_Success() {
 
         long patientId = 1;
@@ -101,6 +108,7 @@ public class PatientControllerTests {
     }
 
     @Test
+    @DisplayName("Remove a Schedule that does not Exist")
     public void remmoveSchedule_SingleItem_NotFound() {
 
         long scheduleId = 1;
@@ -108,11 +116,13 @@ public class PatientControllerTests {
         Mockito.when(this.scheduleRepository.existsById(any())).thenReturn(false);
         ResponseEntity response = this.patientController.removeSchedule(Long.valueOf(scheduleId));
 
+        verify(this.scheduleRepository, times(0)).deleteById(any());
         assertNotNull(response);
         assertEquals(response.getStatusCode(), HttpStatus.OK);
     }
 
     @Test
+    @DisplayName("Remove a Schedule that Exists")
     public void remmoveSchedule_SingleItem_ItemFound() {
 
         long scheduleId = 1;
@@ -120,6 +130,7 @@ public class PatientControllerTests {
         Mockito.when(this.scheduleRepository.existsById(any())).thenReturn(true);
         ResponseEntity response = this.patientController.removeSchedule(Long.valueOf(scheduleId));
 
+        verify(this.scheduleRepository, times(1)).deleteById(any());
         assertNotNull(response);
         assertEquals(response.getStatusCode(), HttpStatus.OK);
     }

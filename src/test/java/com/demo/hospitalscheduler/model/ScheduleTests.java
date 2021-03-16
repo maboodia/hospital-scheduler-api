@@ -1,5 +1,6 @@
 package com.demo.hospitalscheduler.model;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.time.ZonedDateTime;
@@ -9,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ScheduleTests {
 
     @Test
+    @DisplayName("Schedule Setter")
     public void setSchedule_DateValues_Success() {
 
         ZonedDateTime startDate = ZonedDateTime.now();
