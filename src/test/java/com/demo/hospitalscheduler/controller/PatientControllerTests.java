@@ -13,6 +13,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
@@ -112,7 +114,7 @@ public class PatientControllerTests {
         long patientId = 1;
         long scheduleId = 1;
 
-        Mockito.when(this.scheduleRepository.existsById(any())).thenReturn(false);
+        Mockito.when(this.scheduleRepository.findByIdAndPatientId(anyLong(), anyLong())).thenReturn(new ArrayList<>());
         ResponseEntity response = this.patientController.removeSchedule(Long.valueOf(patientId), Long.valueOf(scheduleId));
 
         verify(this.scheduleRepository, times(0)).deleteById(any());
@@ -127,7 +129,7 @@ public class PatientControllerTests {
         long patientId = 1;
         long scheduleId = 1;
 
-        Mockito.when(this.scheduleRepository.existsById(any())).thenReturn(true);
+        Mockito.when(this.scheduleRepository.findByIdAndPatientId(anyLong(), anyLong())).thenReturn(TestDataHelper.generateScheduleEntityList());
         ResponseEntity response = this.patientController.removeSchedule(Long.valueOf(patientId), Long.valueOf(scheduleId));
 
         verify(this.scheduleRepository, times(1)).deleteById(any());
