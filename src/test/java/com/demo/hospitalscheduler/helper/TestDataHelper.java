@@ -4,7 +4,7 @@ import com.demo.hospitalscheduler.model.Schedule;
 import com.demo.hospitalscheduler.persistence.entity.PatientEntity;
 import com.demo.hospitalscheduler.persistence.entity.ScheduleEntity;
 
-import java.sql.Date;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -43,6 +43,16 @@ public class TestDataHelper {
 
         schedule.setDate(ZonedDateTime.now());
         schedule.setRequestedOn(ZonedDateTime.now());
+
+        return schedule;
+    }
+
+    public static Schedule generatePastSchedule() {
+
+        Schedule schedule = new Schedule();
+
+        schedule.setDate(ZonedDateTime.of(2015, 11, 30, 23, 45, 59, 1234, ZoneId.of("UTC+1")));
+        schedule.setRequestedOn(ZonedDateTime.of(2015, 11, 30, 23, 45, 59, 1234, ZoneId.of("UTC+1")));
 
         return schedule;
     }

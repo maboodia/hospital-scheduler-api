@@ -1,9 +1,9 @@
 package com.demo.hospitalscheduler.controller;
 
 import com.demo.hospitalscheduler.model.Schedule;
-import com.demo.hospitalscheduler.persistence.repository.PatientRepository;
 import com.demo.hospitalscheduler.persistence.entity.PatientEntity;
 import com.demo.hospitalscheduler.persistence.entity.ScheduleEntity;
+import com.demo.hospitalscheduler.persistence.repository.PatientRepository;
 import com.demo.hospitalscheduler.persistence.repository.ScheduleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @RestController
@@ -38,6 +39,10 @@ public class PatientsController {
 
         if(!this.patientRepository.existsById(patientId)) {
             return new ResponseEntity<String>("No Patient Found for Id: " + patientId, HttpStatus.NOT_FOUND);
+        }
+
+        if(schedule.getDate().compareTo(ZonedDateTime.now()) < 0) {
+            return new ResponseEntity<String>("Input Date is in the Past !", HttpStatus.BAD_REQUEST);
         }
 
         // Check if schedule was already set for same patient and time

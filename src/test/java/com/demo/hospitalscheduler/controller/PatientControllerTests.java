@@ -92,8 +92,22 @@ public class PatientControllerTests {
     }
 
     @Test
+    @DisplayName("Add a Past Date Schedule")
+    public void addSchedule_PastDate_Failure() {
+
+        long patientId = 1;
+
+        Mockito.when(this.patientRepository.existsById(any())).thenReturn(true);
+        ResponseEntity response = this.patientController.addSchedule(Long.valueOf(patientId), TestDataHelper.generatePastSchedule());
+
+        verify(this.scheduleRepository, times(0)).save(any());
+        assertNotNull(response);
+        assertEquals(response.getStatusCode(), HttpStatus.BAD_REQUEST);
+    }
+
+    @Test
     @DisplayName("Add a Schedule - Not Saved if Already Exists")
-    public void addSchedule_MultipleSavesOfSameSchedule_Success() {
+    public void addSchedule_MultipleSavesOfSameSchedule_NotSaving() {
 
         long patientId = 1;
 
@@ -109,7 +123,7 @@ public class PatientControllerTests {
 
     @Test
     @DisplayName("Remove a Schedule that does not Exist")
-    public void remmoveSchedule_SingleItem_NotFound() {
+    public void remmoveSchedule_NotFound_NoDeletion() {
 
         long patientId = 1;
         long scheduleId = 1;
@@ -124,7 +138,7 @@ public class PatientControllerTests {
 
     @Test
     @DisplayName("Remove a Schedule that Exists")
-    public void remmoveSchedule_SingleItem_ItemFound() {
+    public void remmoveSchedule_ItemFound_Delete() {
 
         long patientId = 1;
         long scheduleId = 1;
