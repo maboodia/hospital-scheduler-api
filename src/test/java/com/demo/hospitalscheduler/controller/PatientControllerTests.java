@@ -3,8 +3,6 @@ package com.demo.hospitalscheduler.controller;
 import com.demo.hospitalscheduler.helper.TestDataHelper;
 import com.demo.hospitalscheduler.persistence.repository.PatientRepository;
 import com.demo.hospitalscheduler.persistence.repository.ScheduleRepository;
-import org.aspectj.lang.annotation.Before;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -31,7 +29,7 @@ public class PatientControllerTests {
     private ScheduleRepository scheduleRepository;
 
     @InjectMocks
-    private PatientController patientController;
+    private PatientsController patientController;
 
     @Test
     @DisplayName("Get Patients - Empty List")
@@ -111,10 +109,11 @@ public class PatientControllerTests {
     @DisplayName("Remove a Schedule that does not Exist")
     public void remmoveSchedule_SingleItem_NotFound() {
 
+        long patientId = 1;
         long scheduleId = 1;
 
         Mockito.when(this.scheduleRepository.existsById(any())).thenReturn(false);
-        ResponseEntity response = this.patientController.removeSchedule(Long.valueOf(scheduleId));
+        ResponseEntity response = this.patientController.removeSchedule(Long.valueOf(patientId), Long.valueOf(scheduleId));
 
         verify(this.scheduleRepository, times(0)).deleteById(any());
         assertNotNull(response);
@@ -125,10 +124,11 @@ public class PatientControllerTests {
     @DisplayName("Remove a Schedule that Exists")
     public void remmoveSchedule_SingleItem_ItemFound() {
 
+        long patientId = 1;
         long scheduleId = 1;
 
         Mockito.when(this.scheduleRepository.existsById(any())).thenReturn(true);
-        ResponseEntity response = this.patientController.removeSchedule(Long.valueOf(scheduleId));
+        ResponseEntity response = this.patientController.removeSchedule(Long.valueOf(patientId), Long.valueOf(scheduleId));
 
         verify(this.scheduleRepository, times(1)).deleteById(any());
         assertNotNull(response);

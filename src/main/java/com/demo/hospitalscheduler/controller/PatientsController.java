@@ -16,50 +16,50 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
-public class PatientController {
+public class PatientsController {
 
     private PatientRepository patientRepository;
 
     private ScheduleRepository scheduleRepository;
 
     @Autowired
-    public PatientController(PatientRepository patientRepository, ScheduleRepository scheduleRepository) {
+    public PatientsController(PatientRepository patientRepository, ScheduleRepository scheduleRepository) {
         this.patientRepository = patientRepository;
         this.scheduleRepository = scheduleRepository;
     }
 
     @GetMapping("/patients")
     public ResponseEntity getPatients() {
-        return new ResponseEntity<List<PatientEntity>>(patientRepository.findAll(), HttpStatus.OK);
+        return new ResponseEntity<List<PatientEntity>>(this.patientRepository.findAll(), HttpStatus.OK);
     }
 
-    @PostMapping(path = "/schedules/{patientId}")
+    @PostMapping(path = "/patients/{patientId}/schedules")
     public ResponseEntity addSchedule(@PathVariable("patientId") @NotNull Long patientId, @RequestBody @Valid Schedule schedule) {
 
-        if(!patientRepository.existsById(patientId)) {
+        if(!this.patientRepository.existsById(patientId)) {
             return new ResponseEntity<String>("No Patient Found for Id: " + patientId, HttpStatus.NOT_FOUND);
         }
 
         // Check if schedule was already set for same patient and time
-        if (scheduleRepository.findByPatientIdAndStartDate(patientId, schedule.getDate()).isEmpty()) {
+        if (this.scheduleRepository.findByPatientIdAndStartDate(patientId, schedule.getDate()).isEmpty()) {
             ScheduleEntity s = new ScheduleEntity();
             s.setStartDate(schedule.getDate());
             s.setRequestedOn(schedule.getRequestedOn());
-            s.setPatient(patientRepository.findById(patientId).get());
-            scheduleRepository.save(s);
+            s.setPatient(this.patientRepository.findById(patientId).get());
+            this.scheduleRepository.save(s);
         }
 
-        return new ResponseEntity<String>("Successfully Created Schedule for Patient Id: " + patientId, HttpStatus.CREATED);
+        return new ResponseEntity<String>("Schedule Created for Patient Id: " + patientId, HttpStatus.CREATED);
     }
 
-    @DeleteMapping(path = "/schedules/{scheuleId}")
-    public ResponseEntity removeSchedule(@PathVariable("scheuleId") @NotNull Long scheuleId) {
+    @DeleteMapping(path = "/patients/{patientId}/schedules/{scheuleId}")
+    public ResponseEntity removeSchedule(@PathVariable("patientId") @NotNull Long patientId, @PathVariable("scheuleId") @NotNull Long scheuleId) {
 
-        if(scheduleRepository.existsById(scheuleId)) {
-            scheduleRepository.deleteById(scheuleId);
+        if(!this.scheduleRepository.findByIdAndPatientId(scheuleId, patientId).isEmpty()) {
+            this.scheduleRepository.deleteById(scheuleId);
         }
 
-        return ResponseEntity.ok().body("Successfully Deleted Schedule");
+        return ResponseEntity.ok().body("Schedule Deleted Schedule for Patient Id: " + patientId);
     }
 
 }

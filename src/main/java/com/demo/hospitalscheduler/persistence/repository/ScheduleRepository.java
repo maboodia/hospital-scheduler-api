@@ -14,4 +14,5 @@ public interface ScheduleRepository extends JpaRepository<ScheduleEntity, Long> 
 
     List<ScheduleEntity> findByPatientIdAndStartDate(long patientId, ZonedDateTime startDate);
 
+    List<ScheduleEntity> findByIdAndPatientId(long id, long patientId);
 }
