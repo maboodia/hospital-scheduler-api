@@ -1,10 +1,8 @@
 package com.demo.hospitalscheduler.persistence.entity;
 
-import com.demo.hospitalscheduler.model.Schedule;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.sql.Date;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

@@ -1,12 +1,10 @@
 package com.demo.hospitalscheduler.persistence.repository;
 
-
 import com.demo.hospitalscheduler.persistence.entity.ScheduleEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.time.ZonedDateTime;
-import java.util.Date;
 import java.util.List;
 
 @Repository
