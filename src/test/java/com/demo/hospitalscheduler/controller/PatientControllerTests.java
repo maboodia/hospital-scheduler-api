@@ -65,7 +65,7 @@ public class PatientControllerTests {
 
     @Test
     @DisplayName("Add a Schedule - Patient Not Found")
-    public void addSchedule_SingleItem_NotFound() {
+    public void addSchedule_InvalidPatient_NotFound() {
 
         long patientId = 1;
 
@@ -78,7 +78,7 @@ public class PatientControllerTests {
 
     @Test
     @DisplayName("Add a Schedule")
-    public void addSchedule_SingleItem_Success() {
+    public void addSchedule_ValidInput_Success() {
 
         long patientId = 1;
 
@@ -122,12 +122,27 @@ public class PatientControllerTests {
     }
 
     @Test
-    @DisplayName("Remove a Schedule that does not Exist")
-    public void remmoveSchedule_NotFound_NoDeletion() {
+    @DisplayName("Remove Schedule - Patient Not Found")
+    public void removeSchedule_InvalidPatient_NotFound() {
 
         long patientId = 1;
         long scheduleId = 1;
 
+        Mockito.when(this.patientRepository.existsById(any())).thenReturn(false);
+        ResponseEntity response = this.patientController.removeSchedule(Long.valueOf(patientId), Long.valueOf(scheduleId));
+
+        assertNotNull(response);
+        assertEquals(response.getStatusCode(), HttpStatus.NOT_FOUND);
+    }
+
+    @Test
+    @DisplayName("Remove a Schedule that does not Exist")
+    public void removeSchedule_NotFound_NoDeletion() {
+
+        long patientId = 1;
+        long scheduleId = 1;
+
+        Mockito.when(this.patientRepository.existsById(any())).thenReturn(true);
         Mockito.when(this.scheduleRepository.findByIdAndPatientId(anyLong(), anyLong())).thenReturn(new ArrayList<>());
         ResponseEntity response = this.patientController.removeSchedule(Long.valueOf(patientId), Long.valueOf(scheduleId));
 
@@ -138,11 +153,12 @@ public class PatientControllerTests {
 
     @Test
     @DisplayName("Remove a Schedule that Exists")
-    public void remmoveSchedule_ItemFound_Delete() {
+    public void removeSchedule_ItemFound_Delete() {
 
         long patientId = 1;
         long scheduleId = 1;
 
+        Mockito.when(this.patientRepository.existsById(any())).thenReturn(true);
         Mockito.when(this.scheduleRepository.findByIdAndPatientId(anyLong(), anyLong())).thenReturn(TestDataHelper.generateScheduleEntityList());
         ResponseEntity response = this.patientController.removeSchedule(Long.valueOf(patientId), Long.valueOf(scheduleId));
 

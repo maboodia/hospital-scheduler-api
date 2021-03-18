@@ -41,8 +41,8 @@ public class TestDataHelper {
 
         Schedule schedule = new Schedule();
 
-        schedule.setDate(ZonedDateTime.now());
-        schedule.setRequestedOn(ZonedDateTime.now());
+        schedule.setDate(ZonedDateTime.of(2050, 11, 30, 23, 45, 59, 1234, ZoneId.of("UTC+1")));
+        schedule.setRequestedOn(ZonedDateTime.of(2050, 11, 30, 23, 45, 59, 1234, ZoneId.of("UTC+1")));
 
         return schedule;
     }

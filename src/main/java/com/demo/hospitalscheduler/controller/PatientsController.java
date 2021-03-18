@@ -60,6 +60,10 @@ public class PatientsController {
     @DeleteMapping(path = "/patients/{patientId}/schedules/{scheuleId}")
     public ResponseEntity removeSchedule(@PathVariable("patientId") @NotNull Long patientId, @PathVariable("scheuleId") @NotNull Long scheuleId) {
 
+        if(!this.patientRepository.existsById(patientId)) {
+            return new ResponseEntity<String>("No Patient Found for Id: " + patientId, HttpStatus.NOT_FOUND);
+        }
+
         if(!this.scheduleRepository.findByIdAndPatientId(scheuleId, patientId).isEmpty()) {
             this.scheduleRepository.deleteById(scheuleId);
         }
