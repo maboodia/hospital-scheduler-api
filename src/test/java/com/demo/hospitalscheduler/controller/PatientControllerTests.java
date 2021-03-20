@@ -26,8 +26,10 @@ public class PatientControllerTests {
     @Test
     @DisplayName("Get Patients")
     public void getPatients_CallService_Success() {
+
         this.patientController.getPatients();
         verify(this.patientsService, times(1)).getPatients();
+
     }
 
     @Test

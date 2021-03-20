@@ -20,6 +20,7 @@ public class ScheduleTests {
 
         assertEquals(schedule.getDate(), startDate);
         assertEquals(schedule.getRequestedOn(), requestedOn);
+
     }
 
 }

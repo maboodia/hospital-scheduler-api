@@ -23,6 +23,7 @@ public class PatientEntityTests {
         assertEquals(entity.getId(), 1);
         assertEquals(entity.getName(), "Test Name");
         assertNotNull(entity.getSchedules());
+
     }
 
 }

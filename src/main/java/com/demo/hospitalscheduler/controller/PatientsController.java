@@ -32,7 +32,6 @@ public class PatientsController {
 
     @DeleteMapping(path = "/patients/{patientId}/schedules/{scheuleId}")
     public ResponseEntity removeSchedule(@PathVariable("patientId") @NotNull Long patientId, @PathVariable("scheuleId") @NotNull Long scheuleId) {
-
         return this.patientsService.removeSchedule(patientId, scheuleId);
     }
 

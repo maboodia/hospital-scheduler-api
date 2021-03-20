@@ -36,31 +36,37 @@ public class PatientServiceTests {
     @Test
     @DisplayName("Get Patients - Empty List")
     public void getPatients_EmptyList_Success() {
+
         Mockito.when(this.patientRepository.findAll()).thenReturn(TestDataHelper.generatePatientEntityList(0));
         ResponseEntity response = this.patientsService.getPatients();
 
         verify(this.patientRepository, times(1)).findAll();
         assertNotNull(response);
+
     }
 
     @Test
     @DisplayName("Get Patients - List with Single Item")
     public void getPatients_ListWithSingleItem_Success() {
+
         Mockito.when(this.patientRepository.findAll()).thenReturn(TestDataHelper.generatePatientEntityList(1));
         ResponseEntity response = this.patientsService.getPatients();
 
         verify(this.patientRepository, times(1)).findAll();
         assertNotNull(response);
+
     }
 
     @Test
     @DisplayName("Get Patients - List with Multiple Items")
     public void getPatients_ListWithMultipleItem_Success() {
+
         Mockito.when(this.patientRepository.findAll()).thenReturn(TestDataHelper.generatePatientEntityList(3));
         ResponseEntity response = this.patientsService.getPatients();
 
         verify(this.patientRepository, times(1)).findAll();
         assertNotNull(response);
+
     }
 
     @Test
@@ -74,6 +80,7 @@ public class PatientServiceTests {
 
         assertNotNull(response);
         assertEquals(response.getStatusCode(), HttpStatus.NOT_FOUND);
+
     }
 
     @Test
@@ -89,6 +96,7 @@ public class PatientServiceTests {
         verify(this.scheduleRepository, times(1)).save(any());
         assertNotNull(response);
         assertEquals(response.getStatusCode(), HttpStatus.CREATED);
+
     }
 
     @Test
@@ -103,6 +111,7 @@ public class PatientServiceTests {
         verify(this.scheduleRepository, times(0)).save(any());
         assertNotNull(response);
         assertEquals(response.getStatusCode(), HttpStatus.BAD_REQUEST);
+
     }
 
     @Test
@@ -119,6 +128,7 @@ public class PatientServiceTests {
         verify(this.scheduleRepository, times(0)).save(any());
         assertNotNull(response);
         assertEquals(response.getStatusCode(), HttpStatus.CREATED);
+
     }
 
     @Test
@@ -133,6 +143,7 @@ public class PatientServiceTests {
 
         assertNotNull(response);
         assertEquals(response.getStatusCode(), HttpStatus.NOT_FOUND);
+
     }
 
     @Test
@@ -149,6 +160,7 @@ public class PatientServiceTests {
         verify(this.scheduleRepository, times(0)).deleteById(any());
         assertNotNull(response);
         assertEquals(response.getStatusCode(), HttpStatus.OK);
+
     }
 
     @Test
@@ -165,6 +177,7 @@ public class PatientServiceTests {
         verify(this.scheduleRepository, times(1)).deleteById(any());
         assertNotNull(response);
         assertEquals(response.getStatusCode(), HttpStatus.OK);
+
     }
 
 }

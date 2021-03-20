@@ -16,7 +16,6 @@ public class TestDataHelper {
     public static Optional<PatientEntity> generatePatientEntityWithId(long id) {
 
         PatientEntity patient = new PatientEntity(id, "Test Name", new ArrayList<>());
-
         return Optional.of(patient);
 
     }
@@ -28,7 +27,6 @@ public class TestDataHelper {
         for (int i=0; i<size; i++) {
 
             PatientEntity patient = new PatientEntity(1, "Test Name", new ArrayList<>());
-
             patientsList.add(patient);
 
         }
@@ -45,6 +43,7 @@ public class TestDataHelper {
         schedule.setRequestedOn(ZonedDateTime.of(2050, 11, 30, 23, 45, 59, 1234, ZoneId.of("UTC+1")));
 
         return schedule;
+
     }
 
     public static Schedule generatePastSchedule() {
@@ -55,6 +54,7 @@ public class TestDataHelper {
         schedule.setRequestedOn(ZonedDateTime.of(2015, 11, 30, 23, 45, 59, 1234, ZoneId.of("UTC+1")));
 
         return schedule;
+
     }
 
     public static List<ScheduleEntity> generateScheduleEntityList() {
@@ -76,5 +76,6 @@ public class TestDataHelper {
         schedulesList.add(schedule);
 
         return schedulesList;
+
     }
 }
