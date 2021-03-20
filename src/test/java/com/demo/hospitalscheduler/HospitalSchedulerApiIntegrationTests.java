@@ -132,7 +132,7 @@ class HospitalSchedulerApiIntegrationTests {
 				String.class);
 
 		assertEquals(HttpStatus.OK.value(), response.getStatusCode().value());
-		assertTrue(response.getBody().contains("Schedule Deleted Schedule for Patient Id"));
+		assertTrue(response.getBody().contains("Deleted Schedule for Patient Id"));
 
 	}
 
@@ -149,7 +149,7 @@ class HospitalSchedulerApiIntegrationTests {
 				String.class);
 
 		assertEquals(HttpStatus.OK.value(), response.getStatusCode().value());
-		assertTrue(response.getBody().contains("Schedule Deleted Schedule for Patient Id"));
+		assertTrue(response.getBody().contains("Deleted Schedule for Patient Id"));
 
 	}
 

@@ -1,74 +1,39 @@
 package com.demo.hospitalscheduler.controller;
 
 import com.demo.hospitalscheduler.model.Schedule;
-import com.demo.hospitalscheduler.persistence.entity.PatientEntity;
-import com.demo.hospitalscheduler.persistence.entity.ScheduleEntity;
-import com.demo.hospitalscheduler.persistence.repository.PatientRepository;
-import com.demo.hospitalscheduler.persistence.repository.ScheduleRepository;
+import com.demo.hospitalscheduler.service.PatientsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.time.ZonedDateTime;
-import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
 public class PatientsController {
 
-    private PatientRepository patientRepository;
-
-    private ScheduleRepository scheduleRepository;
+    private PatientsService patientsService;
 
     @Autowired
-    public PatientsController(PatientRepository patientRepository, ScheduleRepository scheduleRepository) {
-        this.patientRepository = patientRepository;
-        this.scheduleRepository = scheduleRepository;
+    public PatientsController(com.demo.hospitalscheduler.service.PatientsService patientsService) {
+        this.patientsService = patientsService;
     }
 
     @GetMapping("/patients")
     public ResponseEntity getPatients() {
-        return new ResponseEntity<List<PatientEntity>>(this.patientRepository.findAll(), HttpStatus.OK);
+        return this.patientsService.getPatients();
     }
 
     @PostMapping(path = "/patients/{patientId}/schedules")
     public ResponseEntity addSchedule(@PathVariable("patientId") @NotNull Long patientId, @RequestBody @Valid Schedule schedule) {
-
-        if(!this.patientRepository.existsById(patientId)) {
-            return new ResponseEntity<String>("No Patient Found for Id: " + patientId, HttpStatus.NOT_FOUND);
-        }
-
-        if(schedule.getDate().compareTo(ZonedDateTime.now()) < 0) {
-            return new ResponseEntity<String>("Input Date is in the Past !", HttpStatus.BAD_REQUEST);
-        }
-
-        // Check if schedule was already set for same patient and time
-        if (this.scheduleRepository.findByPatientIdAndStartDate(patientId, schedule.getDate()).isEmpty()) {
-            ScheduleEntity s = new ScheduleEntity();
-            s.setStartDate(schedule.getDate());
-            s.setRequestedOn(schedule.getRequestedOn());
-            s.setPatient(this.patientRepository.findById(patientId).get());
-            this.scheduleRepository.save(s);
-        }
-
-        return new ResponseEntity<String>("Schedule Created for Patient Id: " + patientId, HttpStatus.CREATED);
+        return this.patientsService.addSchedule(patientId, schedule);
     }
 
     @DeleteMapping(path = "/patients/{patientId}/schedules/{scheuleId}")
     public ResponseEntity removeSchedule(@PathVariable("patientId") @NotNull Long patientId, @PathVariable("scheuleId") @NotNull Long scheuleId) {
 
-        if(!this.patientRepository.existsById(patientId)) {
-            return new ResponseEntity<String>("No Patient Found for Id: " + patientId, HttpStatus.NOT_FOUND);
-        }
-
-        if(!this.scheduleRepository.findByIdAndPatientId(scheuleId, patientId).isEmpty()) {
-            this.scheduleRepository.deleteById(scheuleId);
-        }
-
-        return ResponseEntity.ok().body("Schedule Deleted Schedule for Patient Id: " + patientId);
+        return this.patientsService.removeSchedule(patientId, scheuleId);
     }
 
 }
