@@ -1,7 +1,6 @@
 package com.demo.hospitalscheduler.service;
 
 import com.demo.hospitalscheduler.model.Schedule;
-import com.demo.hospitalscheduler.persistence.entity.PatientEntity;
 import com.demo.hospitalscheduler.persistence.entity.ScheduleEntity;
 import com.demo.hospitalscheduler.persistence.repository.PatientRepository;
 import com.demo.hospitalscheduler.persistence.repository.ScheduleRepository;
@@ -11,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.ZonedDateTime;
-import java.util.List;
 
 @Service
 public class PatientsService {
@@ -30,7 +28,7 @@ public class PatientsService {
        Get patients data
     */
     public ResponseEntity getPatients() {
-        return new ResponseEntity<List<PatientEntity>>(this.patientRepository.findAll(), HttpStatus.OK);
+        return new ResponseEntity<>(this.patientRepository.findAll(), HttpStatus.OK);
     }
 
     /*
@@ -39,11 +37,11 @@ public class PatientsService {
     public ResponseEntity addSchedule(Long patientId, Schedule schedule) {
 
         if(!this.patientRepository.existsById(patientId)) {
-            return new ResponseEntity<String>("No Patient Found for Id: " + patientId, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("No Patient Found for Id: " + patientId, HttpStatus.NOT_FOUND);
         }
 
         if(schedule.getDate().compareTo(ZonedDateTime.now()) < 0) {
-            return new ResponseEntity<String>("Input Date is in the Past !", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Input Date is in the Past !", HttpStatus.BAD_REQUEST);
         }
 
         // Check if schedule was already set for same patient and time
@@ -55,7 +53,7 @@ public class PatientsService {
             this.scheduleRepository.save(s);
         }
 
-        return new ResponseEntity<String>("Schedule Created for Patient Id: " + patientId, HttpStatus.CREATED);
+        return new ResponseEntity<>("Schedule Created for Patient Id: " + patientId, HttpStatus.CREATED);
     }
 
     /*
@@ -64,7 +62,7 @@ public class PatientsService {
     public ResponseEntity removeSchedule(Long patientId, Long scheuleId) {
 
         if(!this.patientRepository.existsById(patientId)) {
-            return new ResponseEntity<String>("No Patient Found for Id: " + patientId, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("No Patient Found for Id: " + patientId, HttpStatus.NOT_FOUND);
         }
 
         if(!this.scheduleRepository.findByIdAndPatientId(scheuleId, patientId).isEmpty()) {
