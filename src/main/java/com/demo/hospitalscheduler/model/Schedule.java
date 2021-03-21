@@ -15,6 +15,9 @@ import java.time.ZonedDateTime;
 public class Schedule {
 
     @NotNull
+    private long doctorId;
+
+    @NotNull
     private ZonedDateTime date;
 
     @NotNull
