@@ -15,7 +15,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class DoctortEntity {
+public class DoctorEntity {
 
     @Id
     @Column(name="DOCTOR_ID")

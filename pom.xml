@@ -92,6 +92,9 @@
 				<configuration>
 					<output>file</output>
 					<append>true</append>
+					<excludes>
+						<exclude>com/demo/hospitalscheduler/model/**/*.class</exclude>
+					</excludes>
 				</configuration>
 				<executions>
 					<execution>
@@ -111,5 +114,27 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.6</version>
+				<configuration>
+					<excludes>
+						<exclude>com/demo/hospitalscheduler/model/**/*.class</exclude>
+					</excludes>
+				</configuration>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>report</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+			</plugin>
+		</plugins>
+	</reporting>
 
 </project>

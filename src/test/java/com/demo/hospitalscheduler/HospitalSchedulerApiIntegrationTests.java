@@ -20,6 +20,8 @@ class HospitalSchedulerApiIntegrationTests {
 	static final String URL_PREFIX = "http://localhost:";
 	static final String PATIENTS_CONTEXT_ROOT = "/v1/demo/hospital-scheduling/patients";
 	static final String INVALID_PATIENTS_CONTEXT_ROOT = "/v1/demo/hospital-scheduling/patients-not-valid";
+	static final String DOCTORS_CONTEXT_ROOT = "/v1/demo/hospital-scheduling/doctors";
+	static final String INVALID_DOCTORS_CONTEXT_ROOT = "/v1/demo/hospital-scheduling/doctors-not-valid";
 	static final String SCHEDULES_URL_PATH = "/schedules/";
 
 	@LocalServerPort
@@ -30,6 +32,29 @@ class HospitalSchedulerApiIntegrationTests {
 	@Autowired
 	public HospitalSchedulerApiIntegrationTests(TestRestTemplate restTemplate) {
 		this.restTemplate = restTemplate;
+	}
+
+	@Test
+	@DisplayName("Get All Doctors")
+	public void getAllDoctors_ValidRequest_Success() {
+
+		ResponseEntity<String> response = this.restTemplate.getForEntity(URL_PREFIX + this.port + DOCTORS_CONTEXT_ROOT,
+				String.class);
+
+		assertEquals(HttpStatus.OK.value(), response.getStatusCode().value());
+		assertTrue(response.getBody().contains("Purvi Shangvi"));
+
+	}
+
+	@Test
+	@DisplayName("Get All Doctors - Invalid URL")
+	public void getAllDoctors_InvalidPath_NotFound() {
+
+		ResponseEntity<String> response = this.restTemplate.getForEntity(URL_PREFIX + this.port + INVALID_DOCTORS_CONTEXT_ROOT,
+				String.class);
+
+		assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatusCode().value());
+
 	}
 
 	@Test

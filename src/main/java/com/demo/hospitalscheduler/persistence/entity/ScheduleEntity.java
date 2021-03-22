@@ -33,14 +33,10 @@ public class ScheduleEntity {
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "doctor_id")
-    private DoctortEntity doctor;
+    private DoctorEntity doctor;
 
     public Long getDoctor_Id(){
         return this.doctor.getId();
-    }
-
-    public String getDoctor_Name(){
-        return this.doctor.getName();
     }
 
     @JsonBackReference
@@ -50,10 +46,6 @@ public class ScheduleEntity {
 
     public Long getPatient_Id(){
         return this.patient.getId();
-    }
-
-    public String getPatient_Name(){
-        return this.patient.getName();
     }
 
     @Column(name="start_date")

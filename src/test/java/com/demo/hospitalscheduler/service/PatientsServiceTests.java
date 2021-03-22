@@ -1,6 +1,7 @@
 package com.demo.hospitalscheduler.service;
 
 import com.demo.hospitalscheduler.helper.TestDataHelper;
+import com.demo.hospitalscheduler.persistence.repository.DoctorRepository;
 import com.demo.hospitalscheduler.persistence.repository.PatientRepository;
 import com.demo.hospitalscheduler.persistence.repository.ScheduleRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -22,7 +23,10 @@ import static org.mockito.Mockito.*;
 
 
 @ExtendWith(MockitoExtension.class)
-public class PatientServiceTests {
+public class PatientsServiceTests {
+
+    @Mock
+    private DoctorRepository doctorRepository;
 
     @Mock
     private PatientRepository patientRepository;
@@ -84,12 +88,29 @@ public class PatientServiceTests {
     }
 
     @Test
+    @DisplayName("Add a Schedule - Invalid Doctor Id")
+    public void addSchedule_InvalidDoctor_NotFound() {
+
+        long patientId = 1;
+
+        Mockito.when(this.patientRepository.existsById(any())).thenReturn(true);
+        Mockito.when(this.doctorRepository.existsById(any())).thenReturn(false);
+        ResponseEntity response = this.patientsService.addSchedule(Long.valueOf(patientId), TestDataHelper.generateScheduleInvalidDoctor());
+
+        assertNotNull(response);
+        assertEquals(response.getStatusCode(), HttpStatus.INTERNAL_SERVER_ERROR);
+
+    }
+
+    @Test
     @DisplayName("Add a Schedule")
     public void addSchedule_ValidInput_Success() {
 
         long patientId = 1;
 
         Mockito.when(this.patientRepository.existsById(any())).thenReturn(true);
+        Mockito.when(this.doctorRepository.existsById(any())).thenReturn(true);
+        Mockito.when(this.doctorRepository.findById(any())).thenReturn(TestDataHelper.generateDoctorEntityWithId(patientId));
         Mockito.when(this.patientRepository.findById(any())).thenReturn(TestDataHelper.generatePatientEntityWithId(patientId));
         ResponseEntity response = this.patientsService.addSchedule(Long.valueOf(patientId), TestDataHelper.generateSchedule());
 
@@ -106,6 +127,7 @@ public class PatientServiceTests {
         long patientId = 1;
 
         Mockito.when(this.patientRepository.existsById(any())).thenReturn(true);
+        Mockito.when(this.doctorRepository.existsById(any())).thenReturn(true);
         ResponseEntity response = this.patientsService.addSchedule(Long.valueOf(patientId), TestDataHelper.generatePastSchedule());
 
         verify(this.scheduleRepository, times(0)).save(any());
@@ -121,6 +143,7 @@ public class PatientServiceTests {
         long patientId = 1;
 
         Mockito.when(this.patientRepository.existsById(any())).thenReturn(true);
+        Mockito.when(this.doctorRepository.existsById(any())).thenReturn(true);
         Mockito.when(this.scheduleRepository.findByPatientIdAndStartDate(anyLong(), any())).thenReturn(TestDataHelper.generateScheduleEntityList());
 
         ResponseEntity response = this.patientsService.addSchedule(Long.valueOf(patientId), TestDataHelper.generateSchedule());

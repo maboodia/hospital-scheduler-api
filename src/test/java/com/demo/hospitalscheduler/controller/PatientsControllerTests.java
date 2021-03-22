@@ -15,7 +15,7 @@ import static org.mockito.Mockito.verify;
 
 
 @ExtendWith(MockitoExtension.class)
-public class PatientControllerTests {
+public class PatientsControllerTests {
 
     @Mock
     private PatientsService patientsService;
@@ -33,7 +33,7 @@ public class PatientControllerTests {
     }
 
     @Test
-    @DisplayName("Get Patients")
+    @DisplayName("Add Patient")
     public void addSchedule_CallService_Success() {
 
         long patientId = 1;
@@ -45,7 +45,7 @@ public class PatientControllerTests {
     }
 
     @Test
-    @DisplayName("Get Patients")
+    @DisplayName("Remove Patient")
     public void removeSchedule_CallService_Success() {
 
         long patientId = 1;

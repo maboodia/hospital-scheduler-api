@@ -1,6 +1,7 @@
 package com.demo.hospitalscheduler.helper;
 
 import com.demo.hospitalscheduler.model.Schedule;
+import com.demo.hospitalscheduler.persistence.entity.DoctorEntity;
 import com.demo.hospitalscheduler.persistence.entity.PatientEntity;
 import com.demo.hospitalscheduler.persistence.entity.ScheduleEntity;
 
@@ -13,25 +14,47 @@ import java.util.Optional;
 
 public class TestDataHelper {
 
+    public static Optional<DoctorEntity> generateDoctorEntityWithId(long id) {
+
+        DoctorEntity doctorEntity = new DoctorEntity(id, "Test Name", new ArrayList<>());
+        return Optional.of(doctorEntity);
+
+    }
+
+    public static List<DoctorEntity> generateDoctorEntityList(int size) {
+
+        List<DoctorEntity> doctortEntities = new ArrayList<>();
+
+        for (int i=0; i<size; i++) {
+
+            DoctorEntity doctortEntity = new DoctorEntity(1, "Test Name", new ArrayList<>());
+            doctortEntities.add(doctortEntity);
+
+        }
+
+        return doctortEntities;
+
+    }
+
     public static Optional<PatientEntity> generatePatientEntityWithId(long id) {
 
-        PatientEntity patient = new PatientEntity(id, "Test Name", new ArrayList<>());
-        return Optional.of(patient);
+        PatientEntity patientEntity = new PatientEntity(id, "Test Name", new ArrayList<>());
+        return Optional.of(patientEntity);
 
     }
 
     public static List<PatientEntity> generatePatientEntityList(int size) {
 
-        List<PatientEntity> patientsList = new ArrayList<>();
+        List<PatientEntity> patientEntities = new ArrayList<>();
 
         for (int i=0; i<size; i++) {
 
-            PatientEntity patient = new PatientEntity(1, "Test Name", new ArrayList<>());
-            patientsList.add(patient);
+            PatientEntity patientEntity = new PatientEntity(1, "Test Name", new ArrayList<>());
+            patientEntities.add(patientEntity);
 
         }
 
-        return patientsList;
+        return patientEntities;
 
     }
 
@@ -39,6 +62,19 @@ public class TestDataHelper {
 
         Schedule schedule = new Schedule();
 
+        schedule.setDoctorId(1);
+        schedule.setDate(ZonedDateTime.of(2050, 11, 30, 23, 45, 59, 1234, ZoneId.of("UTC+1")));
+        schedule.setRequestedOn(ZonedDateTime.of(2050, 11, 30, 23, 45, 59, 1234, ZoneId.of("UTC+1")));
+
+        return schedule;
+
+    }
+
+    public static Schedule generateScheduleInvalidDoctor() {
+
+        Schedule schedule = new Schedule();
+
+        schedule.setDoctorId(9999);
         schedule.setDate(ZonedDateTime.of(2050, 11, 30, 23, 45, 59, 1234, ZoneId.of("UTC+1")));
         schedule.setRequestedOn(ZonedDateTime.of(2050, 11, 30, 23, 45, 59, 1234, ZoneId.of("UTC+1")));
 
@@ -50,6 +86,7 @@ public class TestDataHelper {
 
         Schedule schedule = new Schedule();
 
+        schedule.setDoctorId(1);
         schedule.setDate(ZonedDateTime.of(2015, 11, 30, 23, 45, 59, 1234, ZoneId.of("UTC+1")));
         schedule.setRequestedOn(ZonedDateTime.of(2015, 11, 30, 23, 45, 59, 1234, ZoneId.of("UTC+1")));
 
@@ -71,7 +108,7 @@ public class TestDataHelper {
         schedule.setRequestedOn(ZonedDateTime.now());
         schedule.setPatient(patient);
 
-        patient.setSchedules(new ArrayList<ScheduleEntity>(Arrays.asList(schedule)));
+        patient.setSchedules(new ArrayList<>(Arrays.asList(schedule)));
 
         schedulesList.add(schedule);
 
