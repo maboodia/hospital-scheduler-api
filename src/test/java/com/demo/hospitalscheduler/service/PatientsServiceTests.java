@@ -35,7 +35,7 @@ public class PatientsServiceTests {
     private ScheduleRepository scheduleRepository;
 
     @InjectMocks
-    private PatientsService patientsService;
+    private PatientsServiceImpl patientsService;
 
     @Test
     @DisplayName("Get Patients - Empty List")

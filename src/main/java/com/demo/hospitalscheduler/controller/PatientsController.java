@@ -16,7 +16,7 @@ public class PatientsController {
     private PatientsService patientsService;
 
     @Autowired
-    public PatientsController(com.demo.hospitalscheduler.service.PatientsService patientsService) {
+    public PatientsController(PatientsService patientsService) {
         this.patientsService = patientsService;
     }
 
@@ -30,9 +30,9 @@ public class PatientsController {
         return this.patientsService.addSchedule(patientId, schedule);
     }
 
-    @DeleteMapping(path = "/patients/{patientId}/schedules/{scheuleId}")
-    public ResponseEntity removeSchedule(@PathVariable("patientId") @NotNull Long patientId, @PathVariable("scheuleId") @NotNull Long scheuleId) {
-        return this.patientsService.removeSchedule(patientId, scheuleId);
+    @DeleteMapping(path = "/patients/{patientId}/schedules/{scheduleId}")
+    public ResponseEntity removeSchedule(@PathVariable("patientId") @NotNull Long patientId, @PathVariable("scheduleId") @NotNull Long scheduleId) {
+        return this.patientsService.removeSchedule(patientId, scheduleId);
     }
 
 }

@@ -129,12 +129,12 @@ class HospitalSchedulerApiIntegrationTests {
 
 	@Test
 	@DisplayName("Remove Schedule - Patient Id Not Found")
-	public void removechedule_InvalidPatient_NotFound() {
+	public void removeSchedule_InvalidPatient_NotFound() {
 
 		long invalidPatientId = 9999;
-		long schduleId = 1;
+		long scheduleId = 1;
 
-		ResponseEntity<String> response = this.restTemplate.exchange(URL_PREFIX + this.port + PATIENTS_CONTEXT_ROOT + "/" + invalidPatientId + SCHEDULES_URL_PATH + schduleId,
+		ResponseEntity<String> response = this.restTemplate.exchange(URL_PREFIX + this.port + PATIENTS_CONTEXT_ROOT + "/" + invalidPatientId + SCHEDULES_URL_PATH + scheduleId,
 				HttpMethod.DELETE,
 				null,
 				String.class);
@@ -146,12 +146,12 @@ class HospitalSchedulerApiIntegrationTests {
 
 	@Test
 	@DisplayName("Remove Schedule - Schedule Not Found")
-	public void removechedule_ScheduleNotFound_Success() {
+	public void removeSchedule_ScheduleNotFound_Success() {
 
 		long patientId = 1;
-		long schduleId = 9999;
+		long scheduleId = 9999;
 
-		ResponseEntity<String> response = this.restTemplate.exchange(URL_PREFIX + this.port + PATIENTS_CONTEXT_ROOT + "/" + patientId + SCHEDULES_URL_PATH + schduleId,
+		ResponseEntity<String> response = this.restTemplate.exchange(URL_PREFIX + this.port + PATIENTS_CONTEXT_ROOT + "/" + patientId + SCHEDULES_URL_PATH + scheduleId,
 				HttpMethod.DELETE,
 				null,
 				String.class);
@@ -163,12 +163,12 @@ class HospitalSchedulerApiIntegrationTests {
 
 	@Test
 	@DisplayName("Remove Schedule - Valid Request")
-	public void removechedule_ValidRequest_Success() {
+	public void removeSchedule_ValidRequest_Success() {
 
 		long patientId = 1;
-		long schduleId = 1;
+		long scheduleId = 1;
 
-		ResponseEntity<String> response = this.restTemplate.exchange(URL_PREFIX + this.port + PATIENTS_CONTEXT_ROOT + "/" + patientId + SCHEDULES_URL_PATH + schduleId,
+		ResponseEntity<String> response = this.restTemplate.exchange(URL_PREFIX + this.port + PATIENTS_CONTEXT_ROOT + "/" + patientId + SCHEDULES_URL_PATH + scheduleId,
 				HttpMethod.DELETE,
 				null,
 				String.class);

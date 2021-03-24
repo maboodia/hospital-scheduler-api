@@ -23,7 +23,7 @@ public class DoctorsServiceTests {
     private DoctorRepository doctorRepository;
 
     @InjectMocks
-    private DoctorsService doctorsService;
+    private DoctorsServiceImpl doctorsService;
 
     @Test
     @DisplayName("Get Patients - Empty List")
